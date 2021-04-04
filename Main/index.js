@@ -52,47 +52,63 @@ inquirer.prompt([
     message: "Please give us your linkedin profile url."
   }
 ])
-.then((response)=> console.log(response))
+.then((response)=>{
+  const {nameRes, ageRes, locationRes, familyMembersRes, bioRes, techLangRes, humanLangRes, githubRes, linkedInRes} = response;
+  return buildFileContents(nameRes, ageRes, locationRes, familyMembersRes, bioRes, techLangRes, humanLangRes, githubRes, linkedInRes);
+})
+.then((data)=>{
+  fs.writeFile('test.html', data, (error)=>{
+    error ? console.error(error) : console.log("File Written Successfully");
+  });
+})
 
-// const fileContents = `<!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Document</title>
-// </head>
-// <body>
-//     <h1>Build Out an HTML File</h1>
+function buildFileContents(nameRes, ageRes, locationRes, familyMembersRes, bioRes, techLangRes, humanLangRes, githubRes, linkedInRes){
 
-//     <h3>Name</h3>
-//     <p></p>
+  const fileContents = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Build Out an HTML File</h1>
 
-//     <h3>Age</h3>
-//     <p></p>
+    <h3>Name</h3>
+    <p>${nameRes}</p>
 
-//     <h3>Location</h3>
-//     <p></p>
+    <h3>Age</h3>
+    <p>${ageRes}</p>
 
-//     <h3>Family Members</h3>
-//     <p></p>
+    <h3>Location</h3>
+    <p>${locationRes}</p>
 
-//     <h3>Bio</h3>
-//     <p></p>
+    <h3>Family Members</h3>
+    <p>${familyMembersRes}</p>
 
-//     <h3>Technical Languages Known</h3>
-//     <p></p>
+    <h3>Bio</h3>
+    <p>${bioRes}</p>
 
-//     <h3>Human Languages Known</h3>
-//     <p></p>
+    <h3>Technical Languages Known</h3>
+    <p>${techLangRes}</p>
 
-//     <h3>Github profile url</h3>
-//     <p></p>
+    <h3>Human Languages Known</h3>
+    <p>${humanLangRes}</p>
 
-//     <h3>Linked In Profile URL</h3>
-//     <p></p>
-// </body>
-// </html>`
+    <h3>Github profile url</h3>
+    <p>https://www.github.com/${githubRes}</p>
+
+    <h3>Linked In Profile URL</h3>
+    <p>${linkedInRes}</p>
+</body>
+</html>`;
+
+return fileContents;
+
+}
+
+
 // //use fs to write file and place fileContents within
 // fs.writeFile('test.html', fileContents, (error)=>{
 //   error ?  console.error(error) : console.log("Success!")
