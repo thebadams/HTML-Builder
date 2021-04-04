@@ -1,4 +1,19 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
-console.log(fs, inquirer);
+const fileContents = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>`
+
+fs.writeFile('test.html', fileContents, (error)=>{
+  error ?  console.error(error) : console.log("Success!")
+})
