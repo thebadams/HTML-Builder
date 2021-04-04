@@ -4,8 +4,14 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 
 //user inquirer to build out fileContents
-
-inquirer.prompt([
+async function getUserInfo(){
+  const response = await userPrompt();
+  const data = await buildFileContents(response)
+  const newFile = await writeFileAsync(data);
+  return newFile;
+}
+async function userPrompt() {
+  return inquirer.prompt([
   {
     type: "input",
     name: "nameRes",
@@ -52,18 +58,16 @@ inquirer.prompt([
     message: "Please give us your linkedin profile url."
   }
 ])
-.then((response)=>{
-  const {nameRes, ageRes, locationRes, familyMembersRes, bioRes, techLangRes, humanLangRes, githubRes, linkedInRes} = response;
-  return buildFileContents(nameRes, ageRes, locationRes, familyMembersRes, bioRes, techLangRes, humanLangRes, githubRes, linkedInRes);
-})
-.then((data)=>{
-  fs.writeFile('test.html', data, (error)=>{
-    error ? console.error(error) : console.log("File Written Successfully");
-  });
-})
+}
 
-function buildFileContents(nameRes, ageRes, locationRes, familyMembersRes, bioRes, techLangRes, humanLangRes, githubRes, linkedInRes){
+async function writeFileAsync(data) {
+  return fs.writeFile('test.html', data, (error)=>{
+    error ? console.error(error) : console.log("Successful Write!")
+  })
+}
 
+async function buildFileContents(response){
+  const {nameRes, ageRes, locationRes, familyMembersRes, bioRes, techLangRes, humanLangRes, githubRes, linkedInRes} = response
   const fileContents = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,6 +111,8 @@ function buildFileContents(nameRes, ageRes, locationRes, familyMembersRes, bioRe
 return fileContents;
 
 }
+
+getUserInfo()
 
 
 // //use fs to write file and place fileContents within
