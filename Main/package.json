@@ -1,0 +1,15 @@
+{
+  "name": "mini-project",
+  "version": "1.0.0",
+  "description": "A CLI application built to buld out an HTML File",
+  "main": "index.js",
+  "repository": "https://wwww.github.com/thebadams/HTML-Builder",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^6.3.1"
+  }
+}
